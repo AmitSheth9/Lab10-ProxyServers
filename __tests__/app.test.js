@@ -28,31 +28,16 @@ describe('app routes', () => {
       return client.end(done);
     });
 
-    test('returns animals', async() => {
+    test('return location lat, long, query', async() => {
 
-      const expectation = [
-        {
-          'id': 1,
-          'name': 'bessie',
-          'cool_factor': 3,
-          'owner_id': 1
-        },
-        {
-          'id': 2,
-          'name': 'jumpy',
-          'cool_factor': 4,
-          'owner_id': 1
-        },
-        {
-          'id': 3,
-          'name': 'spot',
-          'cool_factor': 10,
-          'owner_id': 1
-        }
-      ];
+      const expectation = {
+        'latitude': '42.3602534',
+        'longitude': '-71.0582912',
+        'formatted_query': 'Boston, Suffolk County, Massachusetts, USA'
+      };
 
       const data = await fakeRequest(app)
-        .get('/animals')
+        .get('/location?search=boston')
         .expect('Content-Type', /json/)
         .expect(200);
 
